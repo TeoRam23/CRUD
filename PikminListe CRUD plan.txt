@@ -1,0 +1,29 @@
+Pikmin navn
+
+Utseende:
+Farge - Blomst - Øyne - Unik utseende ting
+
+
+Element resistanse
+
+
+Unike egenskaper
+
+
+Attack damage
+
+
+Fart
+
+
+Bære styrke
+
+
+Først sett i/oppfunnet av
+
+
+
+CRUD:	[C]Kan legge til text på individuelle punkter.
+	[R]Viser liste med texten skrevet i hvert punkt.
+	[U]Kan endre texten i individuelle punkter.
+	[D]Kan slette individuelle pikmin typer.
