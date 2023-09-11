@@ -1,7 +1,9 @@
  
 // først: hente ut table data fra localstorage
 const retrievedData = localStorage.getItem('tableData');
- 
+
+
+
 function rebuildTable(data) {
     const tableSave = document.getElementById('pikmin').getElementsByTagName('tbody')[0];
     //tableSave.innerHTML = ''; // clear existing rows
@@ -20,21 +22,10 @@ function rebuildTable(data) {
         const cell10 = newRow.insertCell(9);
         const cell11 = newRow.insertCell(10);
         const cell12 = newRow.insertCell(11);
-        cell1.textContent = row.navn;
-        cell2.textContent = row.element;
-        cell3.textContent = row.unikE;
-        cell4.textContent = row.attack;
-        cell5.textContent = row.fart;
-        cell6.textContent = row.bere;
-        cell7.textContent = row.forst;
-        cell8.textContent = row.farge;
-        cell9.textContent = row.blomst;
-        cell10.textContent = row.oyne;
-        cell11.textContent = row.unikU;
 
+        newRow.className = "trer";
         
-        
-        /*cell1.className = "tdedit";
+        cell1.className = "tdedit";
         cell1.textContent = row.navn;
         cell2.className = "tdedit";
         cell2.textContent = row.element;
@@ -57,23 +48,37 @@ function rebuildTable(data) {
         cell11.className = "tdedit";
         cell11.textContent = row.unikU;
         cell12.className = "deleteknapp";
-        cell12.textContent = "Delete";*/
+        cell12.textContent = "Delete";
 
 
+
+        /*cell1.textContent = row.navn;
+        cell2.textContent = row.element;
+        cell3.textContent = row.unikE;
+        cell4.textContent = row.attack;
+        cell5.textContent = row.fart;
+        cell6.textContent = row.bere;
+        cell7.textContent = row.forst;
+        cell8.textContent = row.farge;
+        cell9.textContent = row.blomst;
+        cell10.textContent = row.oyne;
+        cell11.textContent = row.unikU;
+
+        
         cell12.textContent = "Delete";
         cell12.className = "deleteknapp";
 
         const wawawa = newRow.getElementsByTagName("td");
         console.log(wawawa)
-        editellerno(wawawa)
+        editellerno(wawawa)*/
     });
 }
 
-function editellerno(wawawa){
+/*function editellerno(wawawa){
         wawawa.forEach((td) => {
             td.className = "tdedit"
         });
-}
+}*/
  
 rebuildTable(JSON.parse(retrievedData)); // kjør funksjon rebuild table med data fra localstorage
  
@@ -89,6 +94,9 @@ var delete_buttons = document.getElementsByClassName("deleteknapp")
 
 var tr_buttons = document.getElementsByClassName("trer")
 
+var editActive = false
+
+var heyIjustDeletedSomething = false
 
 console.log(inputs)
 
@@ -103,6 +111,7 @@ for(var a = 0; a < tr_buttons.length; a++){
 
 
 function save_function(){
+    if (editActive == false){
     tr = "<tr class='trer'>"
     
     inputs.forEach(
@@ -123,8 +132,9 @@ function save_function(){
 
     console.log("klikkeklikke")
 
-    savetheTable()
+    savetheTable()}
 }
+
 
 save_button.addEventListener("click", save_function)
 
@@ -133,13 +143,18 @@ save_button.addEventListener("click", save_function)
 
 
 function delete_function(){
+    if (this.parentNode.className != "getEdit") {
     this.parentNode.remove()
+    savetheTable()
+    heyIjustDeletedSomething = true
+    }
 }
 
 
 
 function replace_function(){
-    if (this.className == "trer"){
+    if (editActive == false && heyIjustDeletedSomething == false){
+        editActive = true
         this.className = "getEdit"
         this.childNodes.forEach(
             function(node){
@@ -147,30 +162,46 @@ function replace_function(){
                 node.innerHTML = "<input type='text' class='replaceInput' value='"+node.innerHTML+"'>"
 
                 console.log("OI " + node.innerHTML)
+            } else if (node.className == "deleteknapp") {
+                node.style.backgroundColor = "gray";
             }
             })
-            document.addEventListener("keyup", function(press) {
-                if (press.code === 'Enter'){replace_complete()}
-            })
+        document.addEventListener("keyup", pressEnter);
+        save_button.style.backgroundColor = "lightgray";
+        
     }
+
+    heyIjustDeletedSomething = false
 
     console.log("DU KLIKKET!!!" + this.childNodes)
 }
 
 
+
+function pressEnter(press) {
+    if (press.code === 'Enter'){replace_complete();}
+}
+
+
+
 function replace_complete(){
+    editActive = false
+    document.removeEventListener("keyup", pressEnter);
     var the_replacers = document.getElementsByClassName("getEdit")
     for(var r = 0; r < the_replacers.length; r++){
         the_replacers[r].childNodes.forEach(
             function(node){
                 if (node.className == "tdedit"){
-                    node.innerHTML = node.childNodes[0].value
+                    node.innerHTML = node.childNodes[0].value;
+                } else if (node.className == "deleteknapp") {
+                    node.style.backgroundColor = "rgb(199, 75, 75)";
                 }}
         )
-        the_replacers[r].className = "trer"
+        the_replacers[r].className = "trer";
     }
 
     console.log("get replaced bro!")
+    save_button.style.backgroundColor = "rgb(165, 228, 82)";
     savetheTable()
 }
 
