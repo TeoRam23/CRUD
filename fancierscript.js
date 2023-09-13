@@ -153,6 +153,9 @@ function delete_function(){
 
 
 function replace_function(){
+    if (this.className != "getEdit") {
+        replace_complete()
+    }
     if (editActive == false && heyIjustDeletedSomething == false){
         editActive = true
         this.className = "getEdit"
@@ -161,7 +164,6 @@ function replace_function(){
             if (node.className == "tdedit"){
                 node.innerHTML = "<input type='text' class='replaceInput' value='"+node.innerHTML+"'>"
 
-                console.log("OI " + node.innerHTML)
             } else if (node.className == "deleteknapp") {
                 node.style.backgroundColor = "gray";
             }
@@ -173,7 +175,7 @@ function replace_function(){
 
     heyIjustDeletedSomething = false
 
-    console.log("DU KLIKKET!!!" + this.childNodes)
+    console.log("DU KLIKKET!!!")
 }
 
 

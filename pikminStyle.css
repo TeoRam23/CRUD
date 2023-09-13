@@ -1,4 +1,4 @@
-h1, h2, h3, h4, table {
+h1, h2, h3, h4, table{
     font-family: Arial, Helvetica, sans-serif;
 }
 
@@ -26,14 +26,15 @@ body {
     flex-direction: row;
 
     height: 100%;
+    width: fit-content;
 }
 
 
 th, td {
     min-height: 54px;
     min-width: 75px;
-    max-width: 175px;
     padding: 5px;
+    width: 9.09%;
     word-break: break-word;
 
     flex-direction: column;
@@ -55,7 +56,7 @@ tr {
 tr:nth-child(odd){background-color: #dedede;}
 
 table {
-    width: 90%;
+    width: 95%;
     height: fit-content;
     border-collapse: collapse;
 }
@@ -65,6 +66,7 @@ table {
     height: 80vh;
     display: flex;
     justify-content: center;
+    margin-right: 5px;
 }
 
 .deleteknapp {
@@ -81,6 +83,7 @@ table {
 #pikminInput {
     display: flex;
     flex-direction: column;
+    margin-right: 5px;
 }
 
 input {
@@ -94,5 +97,17 @@ input[id="save"] {
 
 
 .replaceInput{
-    max-width: 75px;
+    width: 100%;
+    margin-left: -2px;
+    background-color: transparent;
+
+    border-style: none;
+    outline: none;
+    border-bottom-style: solid;
+}
+
+
+
+.endBox, .deleteknapp {
+    width: 75px;
 }
