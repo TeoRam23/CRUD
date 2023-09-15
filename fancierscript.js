@@ -118,7 +118,9 @@ function save_function(){
         function(node, index){
         console.log(node.value)
         tr += "<td class='tdedit'>" + node.value + "</td>"
+        node.value = "";
         }
+        
     )
     tr += "<td class='deleteknapp'>Delete</td></tr>"
     table.innerHTML += tr
